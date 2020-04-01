@@ -119,5 +119,15 @@ Random Forest, KNN, SVM, XGBoost and Hist Gradient Boosting were chosen for furt
 
 \textbf{Extreme Gradient Boosting}: just like gradient boosting, xgboost builds multiple trees, and each tree is based on minimizing the loss of the previous tree. And the final prediction is based on the sum of the learning rate times the prediction of each tree. However, xgboost uses a different loss function and introduces other parameters to make the modeling more robust and faster.
 
-\textbf{Histogram-based Gradient Boosting}:
+\textbf{Histogram-based Gradient Boosting}: a new experimental implementation of gradient boosting trees in sklearn 0.21, no blog or paper currently explains its detailed implementation. According to documentation, it is inspired by LightGBM.
+
+I chose the above algorithms because their performance is relatively good. And except for SVM, the other 3 are ensemble methods, which provide an extra degree of freedom in the classical bias/variance tradeoff and they are also unlikely to overfit. In addition, they are easy to run on multicores to save running time.
+
+Apart from PCA alone as the data preprocessing method, I also tried histogram of oriented gradients(HOG) or HOG combined with PCA as data preprocessing according to \href{https://www.ijitee.org/wp-content/uploads/papers/v8i5/E3075038519.pdf}{this paper}. HOG counts occurrences of gradient orientation in each localized area of an image, so that classification methods such as SVM can use these info to make prediction. However, the accuracy is only about 62\%.
+
+\subsection{Implementation of your Design Choices}
+
+\subsection{Kaggle Competition Score}
+
+\subsection{Results Analysis}
 \end{document}
