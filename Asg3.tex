@@ -117,7 +117,7 @@ Random Forest, KNN, SVM, XGBoost and Hist Gradient Boosting were chosen for furt
 
 \textbf{SVM}: applies a kernel function on the data and finds hyperplanes to separate two classes, and picks the one that maximizes the margin. For multiclass problems like this one, the problem will be treated as multiple binary classifications(One-vs-All or One-vs-One).
 
-\textbf{Extreme Gradient Boosting}:
+\textbf{Extreme Gradient Boosting}: just like gradient boosting, xgboost builds multiple trees, and each tree is based on minimizing the loss of the previous tree. And the final prediction is based on the sum of the learning rate times the prediction of each tree. However, xgboost uses a different loss function and introduces other parameters to make the modeling more robust and faster.
 
 \textbf{Histogram-based Gradient Boosting}:
 \end{document}

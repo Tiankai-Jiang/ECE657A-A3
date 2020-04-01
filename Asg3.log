@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  31 MAR 2020 20:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  31 MAR 2020 22:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -827,7 +827,7 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 ABD: EveryShipout initializing macros
-<ScreePlot.png, id=7, 603.6954pt x 373.6359pt>
+<ScreePlot.png, id=15, 603.6954pt x 373.6359pt>
 File: ScreePlot.png Graphic file (type png)
 <use ScreePlot.png>
 Package pdftex.def Info: ScreePlot.png  used on input line 74.
@@ -843,32 +843,25 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 123.
 (./Asg3.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
-
-
-Package rerunfilecheck Warning: File `Asg3.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Asg3.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  6F3D97CAA63227370E054A242E618612;200.
+Package rerunfilecheck Info: File `Asg3.out' has not changed.
+(rerunfilecheck)             Checksum: 6F3D97CAA63227370E054A242E618612;200.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 123.
  ) 
 Here is how much of TeX's memory you used:
- 20522 strings out of 492616
- 369859 string characters out of 6129482
+ 20525 strings out of 492616
+ 369888 string characters out of 6129482
  649036 words of memory out of 5000000
- 24079 multiletter control sequences out of 15000+600000
+ 24082 multiletter control sequences out of 15000+600000
  10102 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,11n,48p,485b,355s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on Asg3.pdf (3 pages, 114184 bytes).
+Output written on Asg3.pdf (3 pages, 115167 bytes).
 PDF statistics:
- 45 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
+ 52 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  7 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 34 words of extra memory for PDF output out of 10000 (max. 10000000)
 
