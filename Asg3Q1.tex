@@ -177,13 +177,90 @@ For random forest, the accuracy will not increase any more when the number of es
 The specific parameters I tried for each algorithm will be discussed in the following sub-subsection.
 
 \subsubsection{Explanation of your model}
+Use GridSearchCV(5 folds) to find the best parameters for each algorithm.
 
+\textbf{Random Forest}
+\begin{itemize}
+    \item n\_estimators: default value(100), we do not have to tune this parameter since we all know a larger value at least will not make the result worse.
+    \item criterion: [gini, entropy], different functions to measure the quality of a split.
+    \item max\_features: [auto, log2, 0.25, 0.5, 0.75], number of features to consider when split.
+    \item min\_samples\_split: [2, 4, 6, 8, 10], min samples required to split a node.
+    \item min\_samples\_leaf: [1, 3, 5], min samples required to be a leaf node.
+    \item max\_depth: [20, 40, 60], max tree depth.
+\end{itemize}
 
-\section{Classification: Convolutional Neural Networks}
+In total 450 combinations. Best parameter: 
 
-\subsection{Design and Implementation Choices of your Model}
+\textbf{SVM}
+\begin{itemize}
+    \item kernel: rbf, image classification is a nonlinear problem so linear kernel was not considered. And the poly kernel was not considered for its low efficiency according to \href{https://www.kdnuggets.com/2016/06/select-support-vector-machine-kernels.html}{this blog}.
+    \item C: [0.01, 0.1, 1, 5, 10, 15, 20, 25, 30, 35], regularization parameter.
+\end{itemize}
 
-The following CNN models are tested. 
+In total 10 combinations. Best parameter: \{C: 35\}, accuracy: 88.56\%.
 
-CNN1 is a basic CNN with one convolutional layer; CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}; CNN3 is CNN2 with one more convolutional layer and max pooling layer; CNN4 is another VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. In addition, all models in \href{https://solvemprobler.com/blog/2017/09/29/range-of-convolutional-neural-networks-on-fashion-mnist-dataset/}{this blog} are evaluated, but they have very similar performance with the previous ones so I will not show their structure below. Meanwhile, VGG19 model with imagenet pretrained weight and transfer learning of InceptionV3 were tested. Finally, I tried training a Resnet 50 and an Inception model from scratch, and the tutorial can be found \href{https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning#syllabus}{here(Coursera CNN week 2 programming assignments)} and \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{here} respectively.
+\textbf{Hist Gradient Boosting}
+\begin{itemize}
+    \item learning\_rate: default value(0.1)
+    \item max\_iter: default value(100), lower the learning rate and increase max iteration will almost always improve the result, so I did not tune these two parameters.
+    \item max\_leaf\_nodes: [35, 37, 39, 41], max leaves for each tree.
+    \item min\_samples\_leaf: [22, 24, 26, 28], min samples per leaf. Since the training set is large, I tried values greater than the default value(20).
+\end{itemize}
+
+In total 16 combinations. Best parameter: \{max\_leaf\_node: 41, min\_samples\_leaf: 24\}, accuracy: 88.83\%
+
+\textbf{XGBoost}
+
+Following the instruction on \href{https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/}{this blog}, I tuned these parameters step by step.
+
+Step 1:
+\begin{itemize}
+    \item max\_depth: [3, 5, 7, 9, 15], max depth of a tree, typical value 3-10.
+    \item min\_child\_weight: [1, 3, 5], min sum of weights of all observations required in a child.
+\end{itemize}
+
+Step 2:
+\begin{itemize}
+    \item gamma: [0, 0.1, 0.2, 0.3, 0.4], regularisation parameter.
+\end{itemize}
+
+Step3:
+\begin{itemize}
+    \item sub\_sample: [0.6, 0.7, 0.8, 0.9], subsample ratio, to prevent overfitting.
+    \item colsample\_bytree: [0.6, 0.7, 0.8, 0.9], subsample ratio of columns when constructing a tree.
+\end{itemize}
+
+Step 4:
+\begin{itemize}
+    \item reg\_alpha: [0, 1e-5, 1e-2, 0.1], l1 regularisation parameter, the greater, the more conservative the model will be.
+\end{itemize}
+
+In total 15+5+16+4=40 combinations. Best parameters: \{max\_depth: 15, min\_child\_weight: 1, gamma: 0, subsample: 0.8, colsample\_bytree: 0.9, reg\_alpha: 0\}, accuracy: 89.31\%.
+
+XGBoost has the best performance among all 4 algorithms.
+
+\subsubsection{ROC Curve}
+ROC plots of the four algorithms are shown below, AUC is calculated in the plots' legend.
+\begin{figure}[H]
+\captionsetup[subfigure]{labelformat=empty}
+\centering
+\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/RandomForest_ROC.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/SVM_ROC.png}}
+\end{figure}
+\vspace*{-1.5cm}
+\begin{figure}[H]
+\captionsetup[subfigure]{labelformat=empty}
+\centering
+\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/HistogramGradientBoosting_ROC.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/XGBoost_ROC.png}}
+\end{figure}
+\vspace*{-1.5cm}
+The ROC curve was plotted using one-vs-all methodology since this is a multi-class model. So there are 5 lines in each plot, each line represents the ROC curve of one class versus the other classes.
+
+We can learn from the plots that the classifiers performed fairly good on this dataset, as the AUC is close to 1 for all curves. For example, there is 98 percent of chance that the random forest model will be able to distinguish class 1 from other classes. 
+
+We also know that the difficulty to separate each class is class 2 $>$ 3 $>$ 1 $>$ 4 $>$ 0.
+
+\subsubsection{Evaluate your code with other metrics on the training data and argue for the benefit of you approach}
+
 \end{document}
