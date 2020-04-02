@@ -135,5 +135,7 @@ Apart from PCA alone as the data preprocessing method, I also tried histogram of
 
 \subsection{Design and Implementation Choices of your Model}
 
-The following CNN models are tested.
+The following CNN models are tested. 
+
+CNN1 is a basic CNN with one convolutional layer; CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}; CNN3 is CNN2 with one more convolutional layer and max pooling layer; CNN4 is another VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. In addition, all models in \href{https://solvemprobler.com/blog/2017/09/29/range-of-convolutional-neural-networks-on-fashion-mnist-dataset/}{this blog} are evaluated, but they have very similar performance with the previous ones so I will not show their structure below. Meanwhile, VGG19 model with imagenet pretrained weight and transfer learning of InceptionV3 were tested. Finally, I tried training a Resnet 50 and an Inception model from scratch, and the tutorial can be found \href{https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning#syllabus}{here(Coursera CNN week 2 programming assignments)} and \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{here} respectively.
 \end{document}
