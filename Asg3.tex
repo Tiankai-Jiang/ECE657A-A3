@@ -130,6 +130,54 @@ Apart from PCA alone as the data preprocessing method, I also tried histogram of
 \subsection{Kaggle Competition Score}
 
 \subsection{Results Analysis}
+\subsubsection{Runtime performance for training and testing}
+
+Using PCA n\_components = 30, 80 percent labeled data for training and 20 percent for testing, confusion matrices are plotted as below.
+\begin{figure}[H]
+\captionsetup[subfigure]{labelformat=empty}
+\centering
+\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/RandomForestCM.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/SVMCM.png}}
+\end{figure}
+% \vspace*{-1.5cm}
+\begin{figure}[H]
+\captionsetup[subfigure]{labelformat=empty}
+\centering
+\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/HistogramGradientBoostingCM.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/XGBoostCM.png}}
+\end{figure}
+\vspace*{-1.5cm}
+The accuracy given by Kaggle is:
+\begin{center}
+\begin{tabularx}{0.8\textwidth} { 
+| >{\raggedright\arraybackslash}X 
+| >{\raggedleft\arraybackslash}X | }
+\hline
+\textbf{Classifier} & \textbf{Accuracy}\\ 
+\hline
+Random Forest & 88.14\%\\ 
+\hline
+SVM & 88.78\%\\
+\hline
+XGBoost & 89.38\%\\
+\hline
+Histogram-based Gradient Boosting & 89.20\%\\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsubsection{Comparison of the different algorithms and parameters}
+
+From the confusion matrices we can see that for all four algorithms, it is easier to classify class 0 and 4 than other 3 classes. The accuracy to classify 0 and 4 is around 93 percent while it is only 82 percent for class 2. We can also see that the similarity between adjacent classes is relatively greater, for most misclassification rate is contributed by the grids next to the minor diagonals on the matrices.
+
+In terms of fitting time, to achieve the same(~88\%) accuracy, random forest, hist gradient boosting and xgboost use about 70 seconds and SVM uses about 80 seconds. However, the comparison is not that meaningful because SVM is not an ensemble method, and all other three algorithms can run with multicores. The time will vary a lot if those algorithms are tested on a different computer.
+
+For random forest, the accuracy will not increase any more when the number of estimators increased to a certain amount, no matter what the other parameters are. However, the accuracy of Hist gradient boosting and xgboost will increase gradually when the learning rate is decreased and n\_estimator is increased.
+
+The specific parameters I tried for each algorithm will be discussed in the following sub-subsection.
+
+\subsubsection{Explanation of your model}
+
 
 \section{Classification: Convolutional Neural Networks}
 
