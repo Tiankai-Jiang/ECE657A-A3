@@ -72,22 +72,112 @@ Inspired by \href{https://arxiv.org/pdf/1409.1556.pdf}{VGG} and \href{https://ar
 
 The following CNN models are tested. 
 
-CNN1 is a basic CNN with one convolutional layer; CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}; CNN3 is CNN2 with one more convolutional layer and max pooling layer to check if CNN2 is deep enough; CNN4 is a VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. In addition, all models in \href{https://solvemprobler.com/blog/2017/09/29/range-of-convolutional-neural-networks-on-fashion-mnist-dataset/}{this blog} are evaluated, but they have very similar performance with the previous ones so I will not show their structure below. Meanwhile, VGG19 model with imagenet pretrained weight and transfer learning of InceptionV3 were tested. Finally, I tried training a Resnet 50 and an Inception model from scratch, and the tutorial can be found \href{https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning#syllabus}{here(Coursera CNN week 2 programming assignments)} and \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{here} respectively.
-
-\textbf{CNN1}
+\textbf{Model 1}
 
 CNN1 is a sample CNN with only one convolutional layer. Dropout layer is used, which is the easiest way to prevent overfitting.
 
-\textbf{CNN2}
+\textbf{Model 2}
 
 CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}. It has four convolutional layers, each followed by a batch normalization layer, which outputs the previous layer by substracting the batch mean and dividing it by batch standard deviation. Batch normalizatoin could speed up training and increase the stability of the network.
 
-\textbf{CNN3}
+\textbf{Model 3}
 
 CNN3 is just CNN2 with an extra block(a Conv2D, a Batch normalization and a Dropout layer), because I wanted to check if a deeper network could do a better job.
 
-\textbf{CNN4}
+\textbf{Model 4}
 
-CNN4 is a VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}.
+CNN4 is a VGG like network (two or three Convolutional layers followed by a pooling layer) given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. Batch normalizatoin layer was also applied to speed up computation.
 
+\textbf{VGG19}
+
+\href{https://arxiv.org/pdf/1409.1556.pdf}{VGG19} with imagenet pretrained weight. VGG19 contains 16 convolutional layers and 3 fully connected layers. VGG has a relatively simple network structure and it performs well in the image classification. Before using this model, I had to transform the input data into desired form. The origin input format of VGG19 is 224$\times$224$\times$3, and the minimum input dimension for keras VGG19 model is 32$\times$32$\times$3. I stacked the data three times and reshaped it to 150$\times$150, because a too small input would affect the performance of the network and 150$\times$150 is almost the largest size I could get within my computer's capability.
+
+Its performance was really bad(accuracy 65.53\%) so I gave it up. Maybe because our labels were twisted and it was not a conventional image classification problem so we should not use the weights directly. 
+
+\textbf{Inception V3}
+
+Inception network stacks the result of multiple filters together, therefore, the network can learn small details, middle sized features and almost whole images at the same time. So it will usually achieve a good result.
+
+Since using the pretrained weight directly was not a good idea, I tried transfer learning on Inception V3. We had to adjust the input format to 150$\times$150$\times$3 like VGG19, and last 10 layers of the model were retrained. 
+
+The performance was bad as well(accuracy 40.03\%), so I did not try any further improvements.
+
+\textbf{Inception}
+
+The Inception V3 model is too big for us to train from scratch. Following \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{this blog}, I built a smaller Inception network. But its accuracy was only 81.12\%. 
+
+\textbf{Resnet50}
+
+When the network becomes deeper and deeper, the model is prone to overfitting the data. Also, when performing the back-propagation, the gradient may becomes infinitively small or really big, making it harder to make progress. By skipping one or more layers, that is connecting one layer directly to a layer several depth apart, the model becomes more robust. This shortcut connection makes it possible for us to build deeper networks.
+
+The Resnet50 used here was implemented based on \href{https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning#syllabus}{Coursera CNN week 2 programming assignments}.
+
+\textbf{Data Augmentation}
+
+ImageDataGenerator was used to generate transformed images for neural networks. Each image was zoomed, rotated, flipped or sheared and then fed to the network. But it did not perform well as expected. The validation accuracy decreased gradually from around 90 percent to 82 percent as more and more data being generated. Hence, data augmentation was not used later.\\
+
+Hyperparameters, regularization and optimizers will be discussed later.
+
+\subsection{Implementation of your Design Choices}
+
+\subsection{Kaggle Competition Score}
+
+\subsection{Results Analysis}
+
+\subsubsection{Runtime performance for training and testing}
+
+\subsubsection{Comparison of the different algorithms and parameters you tried}
+\begin{center}
+\begin{tabularx}{0.8\textwidth} { 
+| >{\raggedright\arraybackslash}X 
+| >{\raggedleft\arraybackslash}X | }
+\hline
+\textbf{Model} & \textbf{Accuracy}\\ 
+\hline
+1(3 layers) & 79.10\%-91.36\%\\ 
+\hline
+2(7 layers) & 85.68\%-90.15\%\\ 
+\hline
+3(8 layers) & 87.42\%-90.47\%\\ 
+\hline
+4(7 layers) & 89.68\%-90.15\%\\
+\hline
+Inception & 81.12\%\\
+\hline
+Resnet50 & 88.77\%-89.56\%\\
+\hline
+\end{tabularx}
+\end{center}
+
+As we can see from the table, generally, the deeper a network, the more stable its performance. Model 1 only has 3 layers and its accuracy on validation set fluctuate a lot. 79.10\% and 91.36\% are both very rare cases, they occur only once or twice in hundreds of runs. The accuracy is about 88\% on average. Also, we cannot say that model 1 is better than others because its best performance is 91.36\%. Because it is the easiest to train(it took only 3s to train a batch with batchsize = 128), I could train it hundreds of times but for other models, it takes tens of minutes to hours to train. So I could only train them a few times. Model 2 and 4 are both 7 layers but model 4 is more stable than model 2. This may due to its VGG like structure.
+
+The performance of Inception and Resnet50 are disappointing. It took 10 times longer to train them but the accuracy is worse than a simple VGG like model. A possible explanation for this is that the training set is not large enough. For the original Inception and Resnet, they are trained by millions of 
+224$\times$224 colored images. However, we only have 60,000 28$\times$28 grey scale images. The lack of input information made it difficult to build an accurate model.
+
+\subsubsection{Explanation of your model}
+
+The structure of each model have been shown in section 1.1. This section will mainly focus on hyperparameters, regularization and optimizers.
+
+ReduceLROnPlateau was used as callback function on every model to reduce learning rate when the accuracy has stopped improving.
+
+Only dropout layer as regularisation was used because it is the easiest one.
+
+The epochs was set as 40 initially and later I would check if there was sign of overfitting. If there was, the number would be decreased.
+
+The batch size was set as 128 or 256. These two numbers led to similar performance.
+
+Activation function: softmax for output layer and ReLU for others.
+
+The following hyperparameters are tuned using hyperas and hyperopt following \href{https://towardsdatascience.com/a-guide-to-an-efficient-way-to-build-neural-network-architectures-part-ii-hyper-parameter-42efca01e5d7}{this guide}:
+\begin{itemize}
+  \item Dropout rate: a random number between 0 and 1.
+  \item Number of units in a Dense layer: 128, 256 or 512.
+  \item Optimizer: Adam, SGD or RMSProp, each with learning rate of 0.001, 0.01 or 0.1.
+\end{itemize}
+
+However, I found hyperas not so efficient and sometimes it generated a set of parameters that led to a really mediocre result after 30-50 evaluation.
+
+\subsubsection{Plots}
+
+\subsubsection{Evaluate your code with other metrics on the training data and argue for the benefit of you approach.}
 \end{document}
