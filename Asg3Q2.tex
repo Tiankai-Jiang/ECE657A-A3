@@ -68,7 +68,26 @@
 
 \subsection{Design and Implementation Choices of your Model}
 
+Inspired by \href{https://arxiv.org/pdf/1409.1556.pdf}{VGG} and \href{https://arxiv.org/pdf/1512.03385.pdf}{ResNet}, almost all convolution layers are 3$\times$3 and almost all pooling layers are 2$\times$2.
+
 The following CNN models are tested. 
 
-CNN1 is a basic CNN with one convolutional layer; CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}; CNN3 is CNN2 with one more convolutional layer and max pooling layer; CNN4 is another VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. In addition, all models in \href{https://solvemprobler.com/blog/2017/09/29/range-of-convolutional-neural-networks-on-fashion-mnist-dataset/}{this blog} are evaluated, but they have very similar performance with the previous ones so I will not show their structure below. Meanwhile, VGG19 model with imagenet pretrained weight and transfer learning of InceptionV3 were tested. Finally, I tried training a Resnet 50 and an Inception model from scratch, and the tutorial can be found \href{https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning#syllabus}{here(Coursera CNN week 2 programming assignments)} and \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{here} respectively.
+CNN1 is a basic CNN with one convolutional layer; CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}; CNN3 is CNN2 with one more convolutional layer and max pooling layer to check if CNN2 is deep enough; CNN4 is a VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. In addition, all models in \href{https://solvemprobler.com/blog/2017/09/29/range-of-convolutional-neural-networks-on-fashion-mnist-dataset/}{this blog} are evaluated, but they have very similar performance with the previous ones so I will not show their structure below. Meanwhile, VGG19 model with imagenet pretrained weight and transfer learning of InceptionV3 were tested. Finally, I tried training a Resnet 50 and an Inception model from scratch, and the tutorial can be found \href{https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning#syllabus}{here(Coursera CNN week 2 programming assignments)} and \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{here} respectively.
+
+\textbf{CNN1}
+
+CNN1 is a sample CNN with only one convolutional layer. Dropout layer is used, which is the easiest way to prevent overfitting.
+
+\textbf{CNN2}
+
+CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}. It has four convolutional layers, each followed by a batch normalization layer, which outputs the previous layer by substracting the batch mean and dividing it by batch standard deviation. Batch normalizatoin could speed up training and increase the stability of the network.
+
+\textbf{CNN3}
+
+CNN3 is just CNN2 with an extra block(a Conv2D, a Batch normalization and a Dropout layer), because I wanted to check if a deeper network could do a better job.
+
+\textbf{CNN4}
+
+CNN4 is a VGG like network given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}.
+
 \end{document}
