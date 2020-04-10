@@ -340,4 +340,32 @@ Loss, Accuracy vs Epochs for each model(except for Inception because it has only
 Overall, the accuracy increases and the loss decreases for both training set and validation set as more epochs are presented to the model. The training accuracy and loss seem always monotonous. However, there are fluctuations with the validation accuracy and loss. E.g. in model 2 and 3 the validation accuracy dives to 0.8 and then bounces back to 0.9 from time to time. This may due to overfitting, a too large learning rate, not enough data points or some inadequate hyperparameters. And for Resnet50, the validation accuracy does not increase after the 4th epochs, which is definitely because of overfitting, and also the model is too big and it requires more training data. And from the above plots we learn that about 20 epochs is enough to train these models.
 
 \subsubsection{Evaluate your code with other metrics on the training data and argue for the benefit of you approach.}
+
+Using 80 percent data for training and 20 percent for testing, the precision score, recall score and f1 score for each class were calculated.
+\begin{center}
+\small
+\begin{tabular}{|p{1.8cm}|p{4.8cm}|p{4.8cm}|p{4.8cm}|}
+\hline
+\textbf{Model} & \textbf{Precision(Class 0-4) \%} & \textbf{Recall(Class 0-4) \%} & \textbf{F1(Class 0-4) \%}\\ 
+\hline
+1(3 layers) & 95.68 88.76 83.94 83.04 93.37 & 94.91 87.00 83.54 87.11 91.93 & 95.29 87.88 83.74 85.03 92.64\\ 
+\hline
+2(7 layers) & 97.06 86.97 85.55 80.19 82.14 & 91.64 87.00 77.37 76.09 98.09 & 94.27 86.99 81.25 78.08 89.41\\ 
+\hline
+3(8 layers) & 95.12 87.95 87.20 86.40 91.87 & 96.60 90.02 81.81 85.38 94.85 & 95.85 88.97 84.42 85.89 93.34\\ 
+\hline
+4(7 layers) & 92.55 88.02 86.47 85.00 93.57 & 97.06 87.29 83.50 86.44 91.48 & 94.75 87.66 84.96 85.71 92.52\\
+\hline
+Resnet50 & 93.65 85.24 81.51 84.84 87.51 & 93.46 85.31 81.23 79.82 93.38 & 93.56 85.28 81.37 82.25 90.35\\
+\hline
+\end{tabular}
+\end{center}
+
+Precision=$\frac{true\;positive}{true\;positive+false\;positive}$, which indicates the proportion of the data points the model says was relevant actually were relevant.
+
+Recall=$\frac{true\;positive}{true\;positive+false\;negative}$, which indicates the model's ability to find all relavent instances in the dataset.
+
+F1=$2\cdot\frac{precision+recall}{precision\cdot recall}$, which is the harmonic mean of precision and recall, and it takes both metrics into account.
+
+With these different metrics, we can learn that class 2 is the most difficult one to classify and class 0 is the easiest one. And since we have all these scores for each class, instead of a single accuracy number, we can adjust our network to fit a certain task, e.g. if correctly predicting a specific class is much more important than predicting others.
 \end{document}
