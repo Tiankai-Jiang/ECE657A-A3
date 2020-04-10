@@ -4,3 +4,4 @@ train.csv
 *.aux
 *.log
 *.out
+_minted*
