@@ -360,4 +360,30 @@ We also know that the difficulty to separate each class is class 2 $>$ 3 $>$ 1 $
 
 \subsubsection{Evaluate your code with other metrics on the training data and argue for the benefit of you approach}
 
+Previously, we have used confusion matrix, which is another metric, to analyze the result. And here we add precision, recall and f1 score for each model, the scores were calculated for each class. 
+
+Precision=$\frac{true\;positive}{true\;positive+false\;positive}$, which indicates the proportion of the data points the model says was relevant actually were relevant.
+
+Recall=$\frac{true\;positive}{true\;positive+false\;negative}$, which indicates the model's ability to find all relavent instances in the dataset.
+
+F1=$2\cdot\frac{precision+recall}{precision\cdot recall}$, which is the harmonic mean of precision and recall, and it takes both metrics into account.
+
+\begin{center}
+\small
+\begin{tabular}{|p{1.5cm}|p{4.8cm}|p{4.8cm}|p{4.8cm}|}
+\hline
+\textbf{Model} & \textbf{Precision(Class 0-4) \%} & \textbf{Recall(Class 0-4) \%} & \textbf{F1(Class 0-4) \%}\\ 
+\hline
+RF & 94.63 85.47 82.80  86.14 92.26 & 93.37 87.74 82.91 84.42 92.75 & 94.00 86.59 82.86 85.27 92.50\\ 
+\hline
+SVM & 94.13 85.09 84.17 85.76 93.28 & 95.03 88.46 81.27 85.14 92.67 & 94.58 86.74 82.69 85.45 92.98\\ 
+\hline
+XGBoost & 95.16 87.04 84.50 86.25 92.99 & 94.49 88.58 83.53 85.95 93.41 & 94.82 87.81 84.01 86.10 93.20\\ 
+\hline
+HGBoost & 94.73 86.64 83.68 85.62 92.92 & 94.49 87.95 82.58 85.70 92.92 & 94.61 87.29 83.13 85.66 92.92\\
+\hline
+\end{tabular}
+\end{center}
+
+Using accuracy alone, we do not know the result for each class. And when the classes are unbalanced, accuracy cannot reflect the real performance of the model on certain classes. And F1 score will solve this problem if we know what is our "class of interest", so that we can adjust our algorithm to make the prediction of a certain class more accurate.
 \end{document}
