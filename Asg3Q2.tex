@@ -22,8 +22,8 @@
 % paper size and margins
 \usepackage[letterpaper, left=20mm, right=20mm, top=25mm, bottom = 25mm, headsep=.15in]{geometry}
 
-% for code snippet
-\usepackage{listings}
+% code highlighting
+\usepackage{minted}
 
 % for curly brace
 \usepackage{amsmath}
@@ -60,7 +60,7 @@
 \fancyfoot[C]{\thepage}
 
 \setlength{\headheight}{15pt}
-\lstset{language=Python}
+
 \begin{document}
 \noindent
 {\LARGE The source code is at the end of this document}
@@ -158,6 +158,68 @@ Hyperparameters, regularization and optimizers will be discussed later.
 
 \subsection{Implementation of your Design Choices}
 
+\begin{singlespacing}
+\begin{itemize}
+\item A sequential model(take model 1 as example)
+\begin{minted}[linenos,tabsize=4,breaklines]{python}
+CNN1 = Sequential([
+    Conv2D(filters=32, kernel_size=(3, 3), activation='relu', input_shape=(28,28,1)),
+    MaxPool2D(pool_size=(2, 2)),
+    Dropout(0.5),
+    Flatten(),
+    Dense(128, activation='relu'),
+    Dense(5, activation='softmax')
+])
+CNN1.compile(optimizer='adam', loss="categorical_crossentropy", metrics=["accuracy"])
+historyCNN1 = CNN1.fit(X_train, y_train, epochs = 30, batch_size=128, validation_data = (X_val, y_val))
+\end{minted}
+
+\item Data augmentation
+\begin{minted}[linenos,tabsize=4,breaklines]{python}
+datagen = ImageDataGenerator(rotation_range = 8, zoom_range = 0.1, shear_range = 0.3, width_shift_range=0.08, height_shift_range=0.08, vertical_flip=True)
+history = model.fit(datagen.flow(X_train, y_train, batch_size = 128), epochs = 40, validation_data = (X_test, y_test), steps_per_epoch=X_train.shape[0] // 128, callbacks = [reduce_lr])
+\end{minted}
+
+\item Class to record training and testing time in one epoch
+\begin{minted}[linenos,tabsize=4,breaklines]{python}
+class TimeHistory(Callback):
+    def on_train_begin(self, logs={}):
+        self.times = []
+
+    def on_epoch_begin(self, batch, logs={}):
+        self.epoch_time_start = time()
+
+    def on_epoch_end(self, batch, logs={}):
+        self.times.append(time() - self.epoch_time_start)
+\end{minted}
+
+\item Use pretrained weight
+\begin{minted}[linenos,tabsize=4,breaklines]{python}
+vgg19 = VGG19(weights='imagenet', include_top=False, input_shape = (150, 150, 3), classes = 5)
+X_train = keras.applications.vgg19.preprocess_input(X_train)
+train_features = vgg19.predict(np.array(X_train), batch_size=256)
+train_features = np.reshape(train_features, (48000, 4*4*512))
+# then put the trained features to a single layer network to produce output
+\end{minted}
+
+\item Accuracy and loss plot
+\begin{minted}[linenos,tabsize=4,breaklines]{python}
+def acc_plot(history, name):
+    plt.figure(figsize=(10,6))
+    plt.plot(history['accuracy'], label='training accuracy')
+    plt.plot(history['loss'], label='training loss')    
+    plt.plot(history['val_accuracy'], label='validation accuracy')
+    plt.plot(history['val_loss'], label='validation loss')
+    plt.title(name + ' Accuracy and Loss')
+    plt.xlabel('epochs')
+    plt.legend()
+    return plt.show()
+\end{minted}
+
+\item The code to create non-sequential models like Inception and Resnet50 and the code for transfer learning are too long to put it here, please check the source code.
+\end{itemize}
+\end{singlespacing}
+
 \subsection{Kaggle Competition Score}
 
 0.92240
@@ -243,6 +305,39 @@ The following hyperparameters are tuned using hyperas and hyperopt following \hr
 However, I found hyperas not so efficient and sometimes it generated a set of parameters that led to a really mediocre result after 30-50 evaluation.
 
 \subsubsection{Plots}
+Loss, Accuracy vs Epochs for each model(except for Inception because it has only 82\% accuracy) are plotted.
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{./plots/CNN1_Result.png}
+\end{center}
+\end{figure}
+% \vspace*{-1.5cm}
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{./plots/CNN2_Result.png}
+\end{center}
+\end{figure}
+% \vspace*{-1.5cm}
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{./plots/CNN3_Result.png}
+\end{center}
+\end{figure}
+% \vspace*{-1.5cm}
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{./plots/CNN4_Result.png}
+\end{center}
+\end{figure}
+% \vspace*{-1.5cm}
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{./plots/Resnet50_Result.png}
+\end{center}
+\end{figure}
+\vspace*{-1.0cm}
+
+Overall, the accuracy increases and the loss decreases for both training set and validation set as more epochs are presented to the model. The training accuracy and loss seem always monotonous. However, there are fluctuations with the validation accuracy and loss. E.g. in model 2 and 3 the validation accuracy dives to 0.8 and then bounces back to 0.9 from time to time. This may due to overfitting, a too large learning rate, not enough data points or some inadequate hyperparameters. And for Resnet50, the validation accuracy does not increase after the 4th epochs, which is definitely because of overfitting, and also the model is too big and it requires more training data. And from the above plots we learn that about 20 epochs is enough to train these models.
 
 \subsubsection{Evaluate your code with other metrics on the training data and argue for the benefit of you approach.}
 \end{document}
