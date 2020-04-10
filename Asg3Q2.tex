@@ -122,9 +122,36 @@ Hyperparameters, regularization and optimizers will be discussed later.
 
 \subsection{Kaggle Competition Score}
 
+0.92240
+
+Achieved using ensemble method. Train Model 1 repeatedly and only keep the predicted result if its testing accuracy is greater than 91 percent. Collect about 30 predicted results and vote like random forest. It took around 36 hours to get 30 qualified results using a single GTX 1080 Ti.
+
 \subsection{Results Analysis}
 
 \subsubsection{Runtime performance for training and testing}
+
+The training and predicting time \textbf{for one epoch} for each method is shown below:
+\begin{center}
+\begin{tabular}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline
+\textbf{Model} & \textbf{Training(s)} & \textbf{Testing(s)}\\ 
+\hline
+1(3 layers) & 1.84 & 1.21\\ 
+\hline
+2(7 layers) & 5.92 & 1.84\\ 
+\hline
+3(8 layers) & 8.01 & 1.88\\ 
+\hline
+4(7 layers) & 4.68 & 1.43\\
+\hline
+Inception & 161.96 & 14.30\\
+\hline
+Resnet50 & 36.01 & 7.66\\
+\hline
+\end{tabular}
+\end{center}
+
+For sequential models, the more parameters to train, the slower it will get. But the number of parameters and training time does not grow proportionally. Model 2 has 19,340,453 trainable params and model 4 has 1,503,749, yet their training time for one epoch are similar, which indicates that the structure of the network also affects run time. Inception has only 3,290,597 trainable params, however, it takes way longer to train. Resnet50 has 23,544,837 trainable params but it is 3.5 times faster than Inception.
 
 \subsubsection{Comparison of the different algorithms and parameters you tried}
 \begin{center}
