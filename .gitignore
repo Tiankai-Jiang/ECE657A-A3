@@ -1,9 +1,10 @@
 .DS_Store
 .ipynb_checkpoints/*
 train.csv
+orig.csv
 *.aux
 *.log
 *.out
 _minted*
-orig.csv
 __pycache__
+results/*
