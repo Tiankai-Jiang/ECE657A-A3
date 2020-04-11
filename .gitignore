@@ -5,3 +5,5 @@ train.csv
 *.log
 *.out
 _minted*
+orig.csv
+__pycache__
