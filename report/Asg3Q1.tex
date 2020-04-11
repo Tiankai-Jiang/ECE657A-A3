@@ -71,7 +71,7 @@ The models I used on Kaggle are XGBoost, SVM, Random Forest and Hist Gradient Bo
 Dataset was given with labels, so naturally supervised learning methods were considered. There are 784 dimensions in the dataset, therefore, PCA should be applied on it to extract the main features and to decrease the dimension. First I used standard scalar to centralize data and then drew the scree plot with top 100 principle components.
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.7\textwidth]{./plots/ScreePlot.png}
+    \includegraphics[width=0.7\textwidth]{../plots/ScreePlot.png}
 \end{center}
 \end{figure}
 More than 99 percent of variance can be explained by the top 20 principle components. I took n\_components = 30 for a better result.
@@ -237,15 +237,15 @@ Using PCA n\_components = 30, 80 percent labeled data for training and 20 percen
 \begin{figure}[H]
 \captionsetup[subfigure]{labelformat=empty}
 \centering
-\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/RandomForestCM.png}}
-\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/SVMCM.png}}
+\subfloat[]{\includegraphics[width=0.5\textwidth]{../plots/RandomForestCM.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{../plots/SVMCM.png}}
 \end{figure}
 \vspace*{-1.5cm}
 \begin{figure}[H]
 \captionsetup[subfigure]{labelformat=empty}
 \centering
-\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/HistogramGradientBoostingCM.png}}
-\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/XGBoostCM.png}}
+\subfloat[]{\includegraphics[width=0.5\textwidth]{../plots/HistogramGradientBoostingCM.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{../plots/XGBoostCM.png}}
 \end{figure}
 \vspace*{-1.5cm}
 The accuracy given by Kaggle is:
@@ -341,15 +341,15 @@ ROC plots of the four algorithms are shown below, AUC is calculated in the plots
 \begin{figure}[H]
 \captionsetup[subfigure]{labelformat=empty}
 \centering
-\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/RandomForest_ROC.png}}
-\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/SVM_ROC.png}}
+\subfloat[]{\includegraphics[width=0.5\textwidth]{../plots/RandomForest_ROC.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{../plots/SVM_ROC.png}}
 \end{figure}
 \vspace*{-1.5cm}
 \begin{figure}[H]
 \captionsetup[subfigure]{labelformat=empty}
 \centering
-\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/HistogramGradientBoosting_ROC.png}}
-\subfloat[] {\includegraphics[width=0.5\textwidth]{./plots/XGBoost_ROC.png}}
+\subfloat[]{\includegraphics[width=0.5\textwidth]{../plots/HistogramGradientBoosting_ROC.png}}
+\subfloat[] {\includegraphics[width=0.5\textwidth]{../plots/XGBoost_ROC.png}}
 \end{figure}
 \vspace*{-1.5cm}
 The ROC curve was plotted using one-vs-all methodology since this is a multi-class model. So there are 5 lines in each plot, each line represents the ROC curve of one class versus the other classes.

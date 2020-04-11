@@ -77,7 +77,7 @@ The following CNN models are tested.
 CNN1 is a sample CNN with only one convolutional layer. Dropout layer is used, which is the easiest way to prevent overfitting.
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=1.0\textwidth]{./plots/1.png}
+    \includegraphics[width=1.0\textwidth]{../plots/1.png}
 \end{center}
 \end{figure}
 \vspace*{-1.0cm}
@@ -87,7 +87,7 @@ CNN1 is a sample CNN with only one convolutional layer. Dropout layer is used, w
 CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/fashion-mnist-cnn-keras-accuracy-93/}{link given in the assignment}. It has four convolutional layers, each followed by a batch normalization layer, which outputs the previous layer by substracting the batch mean and dividing it by batch standard deviation. Batch normalizatoin could speed up training and increase the stability of the network.
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.83\textwidth]{./plots/2.png}
+    \includegraphics[width=0.83\textwidth]{../plots/2.png}
 \end{center}
 \end{figure}
 \vspace*{-1.0cm}
@@ -97,7 +97,7 @@ CNN2 is similar to the network in the \href{https://www.kaggle.com/fuzzywizard/f
 CNN3 is just CNN2 with an extra block(a Conv2D, a Batch normalization and a Dropout layer), because I wanted to check if a deeper network could do a better job.
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.73\textwidth]{./plots/3.png}
+    \includegraphics[width=0.73\textwidth]{../plots/3.png}
 \end{center}
 \end{figure}
 \vspace*{-1.0cm}
@@ -107,7 +107,7 @@ CNN3 is just CNN2 with an extra block(a Conv2D, a Batch normalization and a Drop
 CNN4 is a VGG like network (two or three Convolutional layers followed by a pooling layer) given in \href{http://proc-x.com/2017/09/a-vgg-like-cnn-for-fashion-mnist-with-94-accuracy/}{this link}. Batch normalizatoin layer was also applied to speed up computation.
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{./plots/4.png}
+    \includegraphics[width=0.8\textwidth]{../plots/4.png}
 \end{center}
 \end{figure}
 \vspace*{-1.0cm}
@@ -131,7 +131,7 @@ The performance was bad as well(accuracy 40.03\%), so I did not try any further 
 The Inception V3 model is too big for us to train from scratch. Following \href{https://machinelearningmastery.com/how-to-implement-major-architecture-innovations-for-convolutional-neural-networks/}{this blog}, I built a smaller Inception network. But its accuracy was only 81.12\%. 
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=1.0\textwidth]{./plots/Inception.png}
+    \includegraphics[width=1.0\textwidth]{../plots/Inception.png}
 \end{center}
 \end{figure}
 \vspace*{-1.0cm}
@@ -146,8 +146,8 @@ The whole structure is too large to show. Only part of it is shown below. The le
 \begin{figure}[H]
 \captionsetup[subfigure]{labelformat=empty}
 \centering
-\subfloat[]{\includegraphics[width=0.5\textwidth]{./plots/ResNet50_1.png}}
-\subfloat[] {\includegraphics[width=0.38\textwidth]{./plots/ResNet50_2.png}}
+\subfloat[]{\includegraphics[width=0.5\textwidth]{../plots/ResNet50_1.png}}
+\subfloat[] {\includegraphics[width=0.38\textwidth]{../plots/ResNet50_2.png}}
 \end{figure}
 
 \textbf{Data Augmentation}
@@ -308,31 +308,31 @@ However, I found hyperas not so efficient and sometimes it generated a set of pa
 Loss, Accuracy vs Epochs for each model(except for Inception because it has only 82\% accuracy) are plotted.
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{./plots/CNN1_Result.png}
+    \includegraphics[width=0.8\textwidth]{../plots/CNN1_Result.png}
 \end{center}
 \end{figure}
 % \vspace*{-1.5cm}
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{./plots/CNN2_Result.png}
+    \includegraphics[width=0.8\textwidth]{../plots/CNN2_Result.png}
 \end{center}
 \end{figure}
 % \vspace*{-1.5cm}
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{./plots/CNN3_Result.png}
+    \includegraphics[width=0.8\textwidth]{../plots/CNN3_Result.png}
 \end{center}
 \end{figure}
 % \vspace*{-1.5cm}
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{./plots/CNN4_Result.png}
+    \includegraphics[width=0.8\textwidth]{../plots/CNN4_Result.png}
 \end{center}
 \end{figure}
 % \vspace*{-1.5cm}
 \begin{figure}[H]
 \begin{center}
-    \includegraphics[width=0.8\textwidth]{./plots/Resnet50_Result.png}
+    \includegraphics[width=0.8\textwidth]{../plots/Resnet50_Result.png}
 \end{center}
 \end{figure}
 \vspace*{-1.0cm}
